@@ -26,13 +26,15 @@ class Account(models.Model):
         choices=ACCOUNT_TYPE_CHOICES,
         null=False,
         blank=False,
-        default=ASSET,
+        default=ASSET
     )
 
     account_name = models.CharField(
         max_length=128,
         null=False,
-        blank=False
+        blank=False,
+        unique=True,
+        primary_key=True
     )
 
     def isAsset(self):
