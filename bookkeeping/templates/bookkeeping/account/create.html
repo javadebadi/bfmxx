@@ -1,9 +1,15 @@
-<!DOCTYPE html>
-<html>
-	<head>
-		<title>create account</title>
-	</head>
-	<body>
-       Hello World
-	</body>
-</html>
+{% extends 'bookkeeping/account/account_base.html' %}
+
+{% block account-header %}
+Create
+{% endblock account-header %}
+
+{% block  content %}
+	   {% if Hello %}
+	   	{% for item in Hello %}
+		   <p>{{ item }}</p>
+		{% endfor %}
+	   {% else %}
+	   <p>Nothing to show</p>
+	   {% endif %}
+{% endblock  %}

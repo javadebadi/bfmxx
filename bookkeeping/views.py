@@ -4,5 +4,5 @@ from django.shortcuts import render
 def create_account(request):
     """The functions creates an account by handling the request
     """
-    context={"Hello":"Hellow"}
+    context={"Hello":["Hellow"]}
     return render(request, 'bookkeeping/account/create.html',context=context)
