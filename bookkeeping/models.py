@@ -12,11 +12,13 @@ class Account(models.Model):
     """
     ASSET='AS'
     LIABILITY='LB'
+    CAPITAL="CP"
     INCOME='IN'
     EXPENSE='EX'
     ACCOUNT_TYPE_CHOICES = [
         (ASSET, 'Assets'),
         (LIABILITY, 'Liability'),
+        (CAPITAL,'Capital'),
         (INCOME, 'Income'),
         (EXPENSE, 'Expense')
     ]
@@ -37,17 +39,24 @@ class Account(models.Model):
         primary_key=True
     )
 
+    account_description = models.CharField(
+        max_length=255,
+        null=False,
+        blank=True,
+        default=f'a new account'
+    )
+
     def isAsset(self):
-        return True if (account_type == ASSET) else False
+        return True if (self.account_type == self.ASSET) else False
 
     def isLiability(self):
-        return True if (account_type == LIABILITY) else False
+        return True if (self.account_type == self.LIABILITY) else False
     
     def isIncome(self):
-        return True if (account_type == INCOME) else False
+        return True if (self.account_type == self.INCOME) else False
     
     def isExpense(self):
-        return True if (account_type == EXPENSE) else False
+        return True if (self.account_type == self.EXPENSE) else False
 
     def __str__(self):
         return f'{self.account_name} --- {self.account_type}'
