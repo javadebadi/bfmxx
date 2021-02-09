@@ -1,3 +1,4 @@
+import csv
 from django.db import models
 
 # Create your models here.
@@ -9,6 +10,7 @@ class Account(models.Model):
         - Liability
         - Income
         - Expense
+        - Capital
     """
     ASSET='AS'
     LIABILITY='LB'
@@ -20,7 +22,13 @@ class Account(models.Model):
         (LIABILITY, 'Liability'),
         (CAPITAL,'Capital'),
         (INCOME, 'Income'),
-        (EXPENSE, 'Expense')
+        (EXPENSE, 'Expense'),
+    ]
+    FIXED_ASSET = 'AS/FX'
+    CURRENT_ASSET = 'AS/CR'
+    ACCOUNT_CATEGORY_CHOICES = [
+        (FIXED_ASSET, 'Fixed Asset'),
+        (CURRENT_ASSET, 'Current Asset'),
     ]
 
     account_type = models.CharField(
@@ -46,6 +54,13 @@ class Account(models.Model):
         default=f'a new account'
     )
 
+    account_category = models.CharField(
+        max_length=9,
+        null=True,
+        blank=True,
+        choices=ACCOUNT_CATEGORY_CHOICES
+    )
+
     def isAsset(self):
         return True if (self.account_type == self.ASSET) else False
 
@@ -61,3 +76,16 @@ class Account(models.Model):
     def __str__(self):
         return f'{self.account_name} --- {self.account_type}'
     
+    def fill_from_csv(self, file_path="bookkeeping/accounts.csv"):
+        account = Account()
+        with open(file_path, newline='') as csvfile:
+            reader = csv.DictReader(csvfile)
+            for row in reader:
+                obj, created = Account.objects.get_or_create(
+                    account_name = row['account_name'],
+                    account_type = row['account_type'],
+                    account_category = row['account_category'],
+                    account_description = row['account_description'],
+                )
+                if created is False:
+                    obj.save()
