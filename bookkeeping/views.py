@@ -4,13 +4,28 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.views.generic import ListView
 from bookkeeping.models import Account
 from .forms import AccountUploadFileForm
+from .forms import AccountCreateForm
 
 # Create your views here.
-def create_account(request):
+def account_create(request):
     """The functions creates an account by handling the request
     """
-    context={"Hello":["Hellow"]}
-    return render(request, 'bookkeeping/account/account_create.html',context=context)
+    if request.method == 'GET':
+        form = AccountCreateForm()
+        context={"form":form}
+        return render(request, 'bookkeeping/account/account_create.html',context=context)
+    if request.method == 'POST':
+        form = AccountCreateForm(request.POST)
+        if form.is_valid():
+            account = Account()
+            account.account_name = form.cleaned_data['account_name']
+            account.account_type = form.cleaned_data['account_type']
+            account.account_category = form.cleaned_data['account_category']
+            account.account_description = form.cleaned_data['account_description']
+            account.save()
+            form = AccountCreateForm()
+        return HttpResponseRedirect('../list')
+    
 
 # a list view of accounts
 class AccountListView(ListView):

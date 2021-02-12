@@ -8,8 +8,8 @@ Upload Account List
 {% block  content %}
     <form method = "post" enctype="multipart/form-data" class="form-group"> 
         {% csrf_token %}
-        Accounts CSV File: <div class="form-control col-6">{{ form.file }}</div>
+        Accounts CSV File: <div class="form-control">{{ form.file }}</div>
         <br>
-        <button class='btn btn-primary ' type="submit">Upload</button> 
+        <button class='btn btn-primary' type="submit">Upload</button> 
     </form> 
 {% endblock  %}

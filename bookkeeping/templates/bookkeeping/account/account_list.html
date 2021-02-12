@@ -19,7 +19,7 @@ Accounts List
 
 
 	{% for account in page_obj %}
-		    <tr>
+		    <tr class='small'>
 				<th scope="row">{{ forloop.counter }}</th>
 				<td>{{ account.account_name }}</td>
 				<td>{{ account.get_account_type_display }}</td>
