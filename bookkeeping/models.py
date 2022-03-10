@@ -26,10 +26,12 @@ class Account(models.Model):
         (EXPENSE, 'Expense'),
     ]
     FIXED_ASSET = 'AS/FX'
+    INTANGIBLE_ASSET = 'AS/IT'
     CURRENT_ASSET = 'AS/CR'
     ACCOUNT_CATEGORY_CHOICES = [
         (FIXED_ASSET, 'Fixed Asset'),
         (CURRENT_ASSET, 'Current Asset'),
+        (INTANGIBLE_ASSET, "Intagible Asset"),
     ]
 
     account_type = models.CharField(

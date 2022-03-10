@@ -48,3 +48,6 @@ def upload_accounts_csv(request):
     else:
         form = AccountUploadFileForm()
     return render(request, 'bookkeeping/account/account_upload.html', {'form': form})
+
+def bookkeeping_main(request):
+    return render(request, 'bookkeeping/account/main.html', {})

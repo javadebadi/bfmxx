@@ -1,0 +1,20 @@
+{% extends 'bookkeeping/account/account_base.html' %}
+
+{% block account-header %}
+Bookkeeping Home
+{% endblock account-header %}
+
+
+{% block content %}
+<ul>
+    <li>
+        <a href={% url 'account_create' %}>Create Account</a>
+    </li>
+    <li>
+        <a href={% url 'account_upload' %}>Upload Accounts</a>
+    </li>
+    <li>
+        <a href={% url 'account_list' %}>List of Accounts</a>
+    </li>
+</ul>
+{% endblock content %}
